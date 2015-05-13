@@ -1,0 +1,56 @@
+/* --------------------------------------------------------------------------
+   * 文件名：                                   prompt.css
+   * 作者：                                       suc
+   * 修改时间：                                2014-04-02
+   * 功能描述：
+     * 提示框样式：                            提示框样式文件
+ -------------------------------------------------------------------------- */
+@charset "utf-8";
+/* 提示框样式 */
+.prompt-box {
+  width: 252px;
+  height: 82px;
+  background-image:url(../image/pro_box.png);
+  line-height: 82px;
+}
+.prompt-content {
+  font-family: Microsoft YaHei;
+  font-size: 14px;
+  position: absolute;
+  left: 65px;
+}
+/* 提示框logo */
+.ok-logo {
+  width: 32px;
+  height: 32px;
+  background-image:url(../image/pro_ok.png);
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
+
+.no-logo {
+  width: 32px;
+  height: 32px;
+  background-image:url(../image/pro_no.png);
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
+.i-logo {
+  width: 32px;
+  height: 32px;
+  background-image:url(../image/pro_i.png);
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}
+
+.progress-logo {
+  width: 32px;
+  height: 32px;
+  background-image:url(../image/loading.gif);
+  position: absolute;
+  top: 25px;
+  left: 20px;
+}

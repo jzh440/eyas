@@ -1,0 +1,174 @@
+@charset "utf-8";
+/* 全局樣式 */
+body,
+div,
+img,
+table,
+td,
+tr,
+p,
+a,
+span,
+em,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: '黑体', Simsun;
+}
+a,a:hover{
+  text-decoration:none;
+  color:#333;
+}
+ul,
+li{
+  list-style: none;
+}
+img{
+  border: 0;
+}
+p {
+  line-height: 24px;
+  margin: 10px 0;
+  font-size: 14px;
+  color: #333;
+}
+h1 {
+  margin-bottom: 40px;
+}
+h1,h2 {
+  color: #636363;
+}
+/* 布局样式 */
+.north {
+  height: 30px;
+}
+.title {
+  height: 30px;
+  box-shadow: 0 0 5px #aaa;
+  line-height: 30px;
+  border-bottom: 1px solid #fcfcfc;
+  background: url(/gisyw/image/img_info_1.png) no-repeat 20px center;
+}
+.title span {
+  font-size: 14px;
+  font-family: '黑体';
+  margin-left: 50px;
+  color: #636363;
+}
+.main {
+  width: 1000px;
+  height: 100%;
+  margin: 0 auto;
+  position: relative;
+}
+.left {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  margin-top: -210px;
+  height: 420px;
+  width: 300px;
+}
+.download {
+  padding: 0;
+  border: 0;
+  width: 206px;
+  height: 40px;
+  margin-left:50px;
+  cursor: pointer;
+  background: url(/gisyw/image/btn_download.png);
+}
+
+.update_btn{
+  padding: 0;
+  border: 0;
+  width: 160px;
+  height: 40px;
+  margin-left:74px;
+  margin-top:20px;
+  background: url(/gisyw/image/img_gengxin.png);
+  cursor: pointer;
+}
+
+.update_btn:hover{
+	 background: url(/gisyw/image/img_gengxin_hover.png);
+}
+.update_btn:active{
+	 background: url(/gisyw/image/img_gengxin_down.png);
+}
+.download:hover {
+  background: url(/gisyw/image/btn_download_hover.png);
+}
+.download:active {
+  background: url(/gisyw/image/btn_download_down.png);
+}
+.center-p {
+  height: 50px;
+}
+.img {
+  margin-left: 50px;
+}
+.right {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  margin-top: -250px;
+  padding-left: 50px;
+  width: 650px;
+  height: 500px;
+}
+.app-title {
+  padding-left: 20px;
+  background: url(/gisyw/image/img_p_1.png) no-repeat 0 center;
+}
+
+.upload{
+	bottom:8px; 
+	border:0px;  
+	width: 50px; 
+	height: 30px; 
+	position:relative; 
+	cursor: pointer; 
+	color:#FFF; 
+	font-size:16px; 
+	border: 0px; 
+	background:url('/gisyw/image/img_btn_upload.png') no-repeat;"
+}
+.update:hover{
+	background:url('/gisyw/image/img_btn_tihuan_hover.png') no-repeat; 
+}
+.upload:hover{
+	background:url('/gisyw/image/img_btn_upload_hover.png') no-repeat;"
+}
+.qx{
+   width: 104px;
+   height: 39px;
+   cursor: pointer;
+   color:#FFF;
+   font-size:16px;
+   margin-left:108px;
+   border: 0px;
+   font-weight:bold;
+   background:url('/gisyw/image/btn_2h.png');
+}
+
+.qd{
+	font-weight:bold; 
+	width: 104px; 
+	height: 39px; 
+	cursor: pointer; 
+	color:#FFF; 
+	font-size:16px; 
+	border: 0px; 
+	margin-left:150px; 
+	background:url('/gisyw/image/btn_1h.png');
+}
+.ehdel_upload_show{
+	height: 60px;
+}
+.ehdel_upload_show input,.ehdel_upload_show label{float:left; margin-left:15px; font-size: 14px;}
+.ehdel_upload_text {width: 380px; height: 30px; position: relative; bottom: 10px;}
+#ehdel_upload_text1 {width: 380px; height: 30px; position: relative; bottom: 10px;}
+.ehdel_upload{float:left;width: 40px;height: 20px;margin-left:-70px;filter:alpha(opacity=0);-moz-opacity:0;opacity:0;}}

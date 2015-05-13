@@ -1,0 +1,107 @@
+@charset "utf-8";
+/* 全局樣式 */
+body,div,img,table,td,tr,p,a,span,em,ul,li {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: '微软雅黑';
+}
+
+ul,li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  border: 0;
+}
+/* 布局样式 */
+.div-box {
+  margin: -200px 0 0 0;
+  padding: 0;
+  border: 0;
+  width: 50%;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  text-align: center;
+}
+.div1 {
+  left: 0%;
+/*   background: red; */
+}
+.div2 {
+/*   background: blue; */
+  left: 50%;
+}
+/* 内容头 */
+.div-header {
+  width: 250px;
+  height: 60px;
+  line-height: 60px;
+}
+.xtgly {
+  position: absolute;
+  right: 100px;
+  background: url(/gisyw/image/img_y_8.png);
+}
+.zcyh {
+  position: absolute;
+  left: 100px;
+  background: url(/gisyw/image/img_y_6.png);
+}
+.div-header span {
+  font-size: 16px;
+  font-weight: bold;
+  margin-left: 50px;
+  color: #fff;
+}
+/* 内容体 */
+.div-content {
+  width: 250px;
+  height: 340px;
+  background: url("/gisyw/image/img_y_7.png") no-repeat;
+}
+.div-content span {
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  top: 30px;
+}
+.div-content p {
+  font-size: 16px;
+  font-weight: bold;
+  position: absolute;
+  left: 20px;
+  top: 80px;
+  width: 210px;
+  text-align: left;
+  line-height: 30px;
+}
+.xtgly-c {
+  position: absolute;
+  right: 100px;
+  top: 60px;
+  background: url(/gisyw/image/img_y_9.png);
+}
+.xtgly-c span,
+.xtgly-c p {
+  color: #a9ad34;
+}
+.xtgly-c p {
+  left: 60px;
+}
+.zcyh-c {
+  position: absolute;
+  left: 100px;
+  top: 60px;
+  background: url(/gisyw/image/img_y_7.png);
+}
+.zcyh-c span,
+.zcyh-c p {
+  color: #5ba53f;
+}

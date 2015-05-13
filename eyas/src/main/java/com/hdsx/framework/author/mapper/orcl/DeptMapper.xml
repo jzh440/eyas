@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.author.mapper.orcl.DeptMapper">
+
+  <sql id="columns" >
+    ID, DEPTNAME, ADDRESS, LEADER, TEL, DISTCODE, POSTCODE, FAX, PID
+  </sql>
+  <sql id="firstcolumns" >
+    A.ID, A.DEPTNAME, A.ADDRESS, A.LEADER, A.TEL, A.DISTCODE, A.POSTCODE, A.FAX, A.PID, B.NAME AS QHMC
+  </sql>
+  <sql id="finalcolumns" >
+    ID, DEPTNAME, ADDRESS, LEADER, TEL, DISTCODE, POSTCODE, FAX, PID, QHMC
+  </sql>
+  <sql id="paramColumns" >
+    ID, DEPTNAME, ADDRESS, LEADER, TEL, DISTCODE, POSTCODE, FAX, PID
+  </sql>
+	<resultMap type="Dept" id="DeptMap">
+		<id property="id" column="ID" jdbcType="VARCHAR" />
+		<result property="distCode" column="DISTCODE" jdbcType="VARCHAR" />
+		<association property="xzqhbm" column="DISTCODE" javaType="DistCode"
+			select="com.hdsx.framework.author.mapper.orcl.DistCodeMapper.selectOne"></association>
+		<collection property="children" column="ID" ofType="Dept" select="selectChildren"></collection>
+		<collection property="users" column="ID" ofType="User"
+			select="com.hdsx.framework.author.mapper.orcl.UserMapper.selectByDeptId"></collection>
+		<collection property="layers" column="ID" ofType="Layer"
+			select="com.hdsx.framework.author.mapper.orcl.LayerMapper.selectByDeptId"></collection>
+	</resultMap>
+	
+	<select id="selectChildren" parameterType="string" resultType="Dept">
+		SELECT <include refid="firstcolumns" /> FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE
+		<where>
+		 AND A.PID = #{id, jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	<select id="selectByDistCode" parameterType="string" resultType="Dept">
+		SELECT <include refid="firstcolumns" /> FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE
+		<where>
+		 AND A.DISTCODE = #{distCode, jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+	<select id="selectOne" parameterType="map" resultMap="DeptMap">
+		SELECT <include refid="firstcolumns" /> FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE
+		<where>
+			<choose>
+				<when test='id != null and !"".equals(id)'>
+					AND A.ID = #{id, jdbcType=VARCHAR}
+				</when>
+				<otherwise>
+					AND 1 > 2
+				</otherwise>
+			</choose>
+		</where>
+	</select>
+	
+	<select id="selectById" parameterType="string" resultType="Dept">
+		SELECT <include refid="firstcolumns" /> FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE
+		<where>
+			AND A.ID = #{id, jdbcType=VARCHAR}
+		</where>
+	</select>
+	
+  <insert id="insert" parameterType="Dept">
+  	INSERT INTO XT_DEPT(<include refid="columns"/>)
+  	VALUES (#{id,jdbcType=VARCHAR},#{deptName,jdbcType=VARCHAR},#{address,jdbcType=VARCHAR},
+  	#{leader,jdbcType=VARCHAR},#{tel,jdbcType=VARCHAR},#{distCode,jdbcType=VARCHAR},
+  	#{postCode,jdbcType=VARCHAR},#{fax,jdbcType=VARCHAR},#{pid,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="Dept">
+  	UPDATE XT_DEPT
+  	<set>
+	  	<if test='deptName != null and !"".equals(deptName)'>
+	  	  DEPTNAME = #{deptName,jdbcType=VARCHAR}, 
+	  	</if>
+	  	ADDRESS = #{address,jdbcType=VARCHAR},
+	  	LEADER = #{leader,jdbcType=VARCHAR}, TEL = #{tel,jdbcType=VARCHAR},
+	  	<if test='distCode != null and !"".equals(distCode)'>
+	  		DISTCODE = #{distCode,jdbcType=VARCHAR},
+	  	</if>
+	  	POSTCODE = #{postCode,jdbcType=VARCHAR},FAX = #{fax,jdbcType=VARCHAR},PID = #{pid,jdbcType=VARCHAR}
+  	</set> 
+  	<where>
+  		AND ID = #{id,jdbcType=VARCHAR}
+  	</where>
+  </update>
+  
+  <select id="count" parameterType="map" resultType="int">
+  	SELECT COUNT(A.ID) FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE 
+  	<where>
+  		<if test='deptName != null and !"".equals(deptName)'>
+	  	  AND A.DEPTNAME LIKE '%' || #{deptName,jdbcType=VARCHAR} || '%'
+	  	</if>
+	  	<if test='address != null and !"".equals(address)'>
+	  	  AND A.ADDRESS LIKE '%' || #{address,jdbcType=VARCHAR} || '%' 
+	  	</if>
+  	</where>
+  </select>
+  
+  <select id="selectList" parameterType="map" resultType="Dept">
+  	SELECT <include refid="finalcolumns"/> FROM (
+  		SELECT <include refid="firstcolumns"/>,ROW_NUMBER() OVER(ORDER BY 
+  		<choose>
+  			<when test='order == null or "".equals(order)'>
+  				A.DEPTNAME
+  			</when>
+  			<otherwise>
+  				A.${order}
+  			</otherwise>
+  		</choose>
+  		) RN FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE 
+  		<where>
+  			<choose>
+	  			<when test="ids != null and ids.length > 0">
+	  				AND A.ID IN
+			  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			  		  #{item, jdbcType=VARCHAR}
+			  		</foreach>
+	  			</when>
+	  			<otherwise>
+			  		<if test='deptName != null and !"".equals(deptName)'>
+				  	  AND A.DEPTNAME LIKE '%' || #{deptName,jdbcType=VARCHAR} || '%' 
+				  	</if>
+				  	<if test='address != null and !"".equals(address)'>
+				  	  AND A.ADDRESS LIKE '%' || #{address,jdbcType=VARCHAR} || '%' 
+				  	</if>
+	  			</otherwise>
+  			</choose>
+  		</where>
+  	) D 
+  		<choose>
+  			<when test='begin != null or end != null'>
+  				<where>
+  					RN > #{begin,jdbcType=VARCHAR} AND #{end,jdbcType=VARCHAR} >= RN
+  				</where>
+  			</when>
+  		</choose>
+  </select>
+  
+  <select id="delete" parameterType="map" >
+  	DELECT FROM XT_DEPT 
+  	<where>
+  		<choose>
+	  		<when test='ids != null and ids.length>0'>
+		  		AND ID IN
+		  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+		  		  #{item, jdbcType=VARCHAR}
+		  		</foreach>
+	  		</when>
+	  		<when test='id != null and !"".equals(id)'>
+			  	  AND ID = #{id,jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+  		</choose>
+  	</where>
+  </select>
+  
+  <select id="selectTop" resultType="Dept">
+  		SELECT <include refid="firstcolumns"/> FROM XT_DEPT A LEFT JOIN YW_DISTCODE B ON A.DISTCODE = B.CODE WHERE A.PID IS NULL
+  </select>
+  
+</mapper>

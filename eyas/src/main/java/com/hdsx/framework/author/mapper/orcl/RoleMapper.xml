@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.author.mapper.orcl.RoleMapper">
+
+  <sql id="columns" >
+    ID, ROLENAME, DESCRIBE
+  </sql>
+  <sql id="paramColumns" >
+    ID, ROLENAME, DESCRIBE
+  </sql>
+  <resultMap type="Role" id="RoleMap">
+  	<id property="id" column="ID" jdbcType="VARCHAR"/>
+  	<collection property="resources" column="ID" ofType="Resource" select="com.hdsx.framework.author.mapper.orcl.ResourceMapper.selectByRoleId"></collection> 
+  </resultMap>
+  
+  <select id="selectByUserId" parameterType="string" resultType="Role">
+	SELECT <include refid="columns"/> FROM XT_ROLE A JOIN XT_USER_ROLE B ON A.ID = B.ROLEID
+	<where>
+		AND B.USERID = #{userId,jdbcType=VARCHAR}
+	</where>
+  </select>	
+  <select id="selectOne" parameterType="map" resultMap="RoleMap">
+  	SELECT <include refid="columns"/> FROM XT_ROLE
+  	<where>
+		<choose>
+			<when test='id != null and !"".equals(id)'>
+				AND ID = #{id, jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+		</choose>
+	 </where>
+  </select>
+  <insert id="insert" parameterType="Role">
+  	INSERT INTO XT_ROLE(<include refid="columns"/>)
+  	values (#{id,jdbcType=VARCHAR},#{roleName,jdbcType=VARCHAR},#{describe,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="Role">
+  	UPDATE XT_ROLE
+  	<set>
+	  	<if test='roleName != null and !"".equals(roleName)'>
+	  		ROLENAME=#{roleName,jdbcType=VARCHAR},
+	  	</if>
+		DESCRIBE=#{describe,jdbcType=VARCHAR}
+  	</set> 
+  	<where>
+  		AND ID = #{id,jdbcType=VARCHAR}
+  	</where>
+  </update>
+  
+  <select id="count" parameterType="map" resultType="int">
+  	SELECT COUNT(ID) FROM XT_ROLE 
+  	<where>
+  		<if test='roleName != null and !"".equals(roleName)'>
+  	 	 AND ROLENAME LIKE '%' || #{roleName,jdbcType=VARCHAR} || '%' 
+  		</if>
+ 	</where>
+  </select>
+  
+  <select id="selectList" parameterType="map" resultType="Role">
+  	SELECT <include refid="columns"/> FROM (
+  		SELECT <include refid="columns"/>,ROW_NUMBER() OVER(ORDER BY 
+		<choose>
+  			<when test='order == null or "".equals(order)'>
+  				ROLENAME
+  			</when>
+  			<otherwise>
+  				${order}
+  			</otherwise>
+  		</choose>
+		) RN FROM XT_ROLE 
+  		<where>
+  			<choose>
+	  			<when test="ids != null and ids.length > 0">
+	  				AND ID IN
+			  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			  		  #{item, jdbcType=VARCHAR}
+			  		</foreach>
+	  			</when>
+	  			<otherwise>
+			  		<if test='roleName != null and !"".equals(roleName)'>
+			  	 	 AND ROLENAME LIKE '%' || #{roleName,jdbcType=VARCHAR} || '%' 
+			  		</if>
+			  	</otherwise>
+  			</choose>
+ 		</where>
+  	) D 
+  		<choose>
+  			<when test='begin != null or end != null'>
+  				<where>
+  					RN > #{begin,jdbcType=VARCHAR} AND #{end,jdbcType=VARCHAR} >= RN
+  				</where>
+  			</when>
+  		</choose>
+  </select>
+  
+   <select id="delete" parameterType="map" >
+  	DELECT FROM XT_ROLE 
+  	<where>
+  		<choose>
+	  		<when test='ids != null and ids.length>0'>
+		  		AND ID IN
+		  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+		  		  #{item, jdbcType=VARCHAR}
+		  		</foreach>
+	  		</when>
+	  		<when test='id != null and !"".equals(id)'>
+			  	  AND ID = #{id,jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+  		</choose>
+  	</where>
+  </select>
+  
+</mapper>

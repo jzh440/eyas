@@ -1,0 +1,255 @@
+@charset "utf-8";
+/* 全局样式 */
+body,
+div,
+img,
+table,
+td,
+tr,
+p,
+a,
+span,
+em,
+ul,
+li {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: '宋体', Simsun;
+}
+a,a:hover{
+  text-decoration: none;
+  color: #000;
+}
+ul,
+li{
+  list-style: none;
+}
+img{
+  border: 0;
+}
+/* 佈局樣式 */
+body {
+  margin: 0;
+  padding: 0;
+}
+.easyui-layout {
+  width: 100%;
+  height: 100%;
+  visibility: hidden;
+}
+.north {
+  height: 60px;
+}
+.west {
+  width: 223px;
+  background: #fff url(../image/bricks.png) repeat;
+}
+.center {
+  margin: 0;
+  padding: 0 10px 10px 7px;
+  background: #fff url(../image/bricks.png) repeat;
+}
+.south {
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  background: url(../image/leather.png) repeat;
+  font-family: Microsoft YaHei;
+  font-size: 14px;
+  color: #ffffff;
+  text-align: center;
+  line-height: 30px;
+}
+.iframe {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 頭信息樣式 */
+#header {
+  height: 60px;
+  background: url(../image/leather.png) repeat;
+}
+#header #content {
+  height: 60px;
+  position: relative;
+}
+.content-logo {
+	background: url('/gisyw/image/img_yw_logo_sx.png') no-repeat; float: left; width: 221px; height: 35px; margin-top: 8px; margin-left: 40px;
+}
+@media screen and (max-width: 1180px) {
+	.content-logo {
+		background: none;
+	}
+}
+.logo_img {
+  position: absolute;
+  top: 12px;
+  left: 25px;
+}
+/* 头右侧图标 */
+.logout {
+  width: 45px;
+  height: 45px;
+  position: absolute;
+  top: 0;
+  right: 20px;
+  background: url(../image/img_t_1.png) no-repeat;
+  cursor: pointer;
+}
+.logout:active {
+  background: url(../image/img_t_1d.png) no-repeat;
+}
+.mail-pop {
+  width: 22px;
+  height: 22px;
+  position: absolute;
+  top: 5px;
+  right: 112px;
+  background-image: url(../image/img_top_4.png);
+  background-repeat: no-repeat;
+  text-align: center;
+  line-height: 22px;
+  color: #ffffff;
+}
+/* 左側菜單樣式 */
+.line-between {
+  width: 6px;
+  height: 100%;
+  background: url(../image/line_between.png) repeat-y;
+  position: absolute;
+  right: 5px;
+  top: 0px;
+}
+.west-border {
+  margin: 5px 0;
+  width: 200px;
+  height: 98%;
+  border-right: 1px solid #E5E5E5;
+  border-top: 1px solid #E5E5E5;
+  border-bottom: 1px solid #E5E5E5;
+  background-color: #ECECE9;
+}
+.west-toggle {
+  line-height: 45px;
+  width: 200px;
+  height: 45px;
+  background-image: url(../image/img_bg1.png);
+  background-repeat: no-repeat;
+  cursor: pointer;
+}
+.west-toggle span {
+  font-family: Microsoft YaHei;
+  font-size: 16px;
+  cursor: pointer;
+}
+.west-toggle:hover {
+  line-height: 45px;
+  width: 200px;
+  height: 45px;
+  background-image: url(../image/img_bg1_d.png);
+  background-repeat: no-repeat;
+  color: #ffffff;
+  cursor: pointer;
+}
+.west-logo {
+  line-height: 45px;
+  margin: 5px 10px 0 10px;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  float: left;
+}
+
+.west-ul li {
+  line-height: 40px;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  height: 40px;
+  background-color: #ECECE9;
+  overflow: hidden;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+.west-ul li:hover {
+  line-height: 40px;
+  font-weight: bold;
+  color: #f54d4d;
+  margin: 0;
+  padding: 0;
+  width: 200px;
+  height: 40px;
+  background: url(../image/img_z_1.png) no-repeat 50px 12px;
+  overflow: hidden;
+  text-decoration: none;
+  outline: none;
+  cursor: pointer;
+}
+.west-ul li a {
+  font-family: Microsoft YaHei;
+  font-size: 14px;
+  width: 120px;
+  height: 40px;
+  float: left;
+  padding-left: 80px;
+  cursor: pointer;
+  outline: none;
+}
+.west-ul li a:hover {
+  font-family: Microsoft YaHei;
+  font-size: 14px;
+  width: 120px;
+  height: 40px;
+  float: left;
+  color: #f54d4d;
+  padding-left: 80px;
+  cursor: pointer;
+  outline: none;
+}
+.selected-li {
+  font-weight: bold;
+  color: #f54d4d;
+}
+/* 修改密码样式 */
+#form_pass {
+  margin: 20px;
+}
+#dkg_pass table {
+  border: 0;
+}
+.input-td {
+  width: 100px;
+  height: 30px;
+  font-size:15px;
+  font-family:Microsoft YaHei;
+  font-weight:500;
+  line-height:30px;
+}
+.input-td label {
+  float: right;
+  center
+}
+.red-span {
+  color: red;
+}
+#userName_pass,
+#password_pass,
+#newPassword_pass,
+#newPassword_pass_i {
+  border:none;
+  outline:medium;
+  width: 200px;
+  height: 30px;
+  font-family:Microsoft YaHei;
+}
+#userName_pass,
+#password_pass,
+#newPassword_pass,
+#newPassword_pass_i {
+/*   BACKGROUND: url(../image/img_password_1.png) no-repeat center; */
+}

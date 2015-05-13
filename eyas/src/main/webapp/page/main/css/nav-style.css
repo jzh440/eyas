@@ -1,0 +1,101 @@
+/* =Styles for the lab
+-------------------------------------------------------------- */
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  content: "";
+  clear: both;
+  height: 0;
+}
+.nav-menu {
+  position: absolute;
+  right: 0;
+/*   background-color: #55bac7; */
+}
+.nav-menu ul {
+  list-style-type:none;
+  margin:0;
+  padding:0;
+}
+.nav-menu ul li {
+  display:inline-block;
+  position:relative;
+}
+
+/* sub navigation */
+.nav-menu li ul {
+  background-color: #ffffff;
+  border: 1px solid #c8c9d0;
+  position:absolute;
+  left:15px;
+  top:60px; /* make this equal to the line-height of the links (specified below) */
+  width:100%;
+}
+.nav-menu li li {
+  border-bottom:solid 1px #dddddd;
+  position:relative;
+  margin:0;
+  padding: 2px 0;
+  display:block;
+  text-align: center;
+}
+.nav-menu li li ul {
+  position:absolute;
+  top:0;
+  left:200px; /* make this equal to the width of the sub nav above */
+  margin:0;
+}
+
+/* style all links */
+.nav-menu a {
+  font-size: 16px;
+  font-weight:bold;
+  line-height:60px;
+  padding:0 12px;
+  margin:0 12px;
+}
+.nav-menu a {
+  color:#fff;
+  text-decoration:none;
+  display:block;
+}
+.nav-menu a:hover,
+.nav-menu a:focus {
+  font-weight:bold;
+  color:#a9ca60;
+}
+
+/* style sub level links */
+.nav-menu li li a {
+  color: #444444;
+  font-size: 14px;
+  margin:5px 0;
+  padding:0;
+}
+.nav-menu li li a:hover {
+  background-color: #a9ca60;
+  color: #ffffff;
+}
+.nav-menu li li:last-child {
+  border-bottom:none;
+}
+
+/* hide sub menu links */
+ul.sub-menu {
+  display:none;
+}
+ul.sub-menu a {
+  line-height:30px;
+}
+/* show arrows for dropdowns */
+.nav-menu li.dropdown > a {
+  background-image:url('/gisyw/image/arrow-down.png');
+  background-position:right center;
+  background-repeat:no-repeat;
+}
+
+.nav-menu li li.dropdown > a {
+  background-image:url('/gisyw/image/arrow-right.png');
+  background-position:right 16px;
+  background-repeat:no-repeat;
+}

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "/xsd/mybatis-3-config.dtd">
+<configuration>
+	<settings>
+		<!-- changes from the defaults for testing -->
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="true" />
+		<setting name="defaultExecutorType" value="REUSE" />
+	</settings>
+
+	<typeAliases>
+		 <!--定义 规范：alias 用全名 和类名字保持一致 -->
+		  <typeAlias type="com.hdsx.framework.module.demo.bean.TUser" alias="TUser"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.DistCode" alias="DistCode"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.Dept" alias="Dept"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.User" alias="User"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.Layer" alias="Layer"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.Role" alias="Role"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.Resource" alias="Resource"/>
+		  <typeAlias type="com.hdsx.framework.author.bean.LoginLog" alias="LoginLog"/>
+	</typeAliases>
+
+</configuration>

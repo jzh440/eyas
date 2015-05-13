@@ -1,0 +1,52 @@
+.noPermission-main{
+	width: 600px;
+	height: 500px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 10%;
+}
+
+.noPermission-left{
+	width: 270px;
+	height: 226px;
+	float:left;
+	background: url("/gisyw/image/img_no_permission.jpg") no-repeat;
+}
+
+.noPermission-right{
+	width: 300px;
+	float: left;
+}
+
+.noPermission-right ul{
+	margin-top: 30px;
+}
+
+.noPermission-right ul li{
+	list-style-type: none;
+}
+
+.noPermission-right ul li h3{
+	font-size: 22px;
+	font-weight: bold;
+	font-family: "黑体";
+	color: #3a88d1;
+}
+
+.noPermission-right ul li span{
+	height:40px;
+	line-height:40px;
+	font-size: 16px;
+	font-family: "黑体";
+	color: #000;
+	display: block;
+}
+
+.noPermission-right ul li span a{
+	height:40px;
+	line-height:40px;
+	font-family: "黑体";
+	font-weight:bold;
+	color: #3a88d1;
+}
+

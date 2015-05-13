@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.author.mapper.orcl.UserMapper">
+
+	<sql id="columns" >
+    ID, USERNAME, REALNAME, PASSWORD, DEPTID, POST, MOBILE, EMAIL
+  </sql>
+  <sql id="firstcolumns" >
+    A.ID, A.USERNAME, A.REALNAME, A.PASSWORD, A.DEPTID, A.POST, A.MOBILE, A.EMAIL, B.DEPTNAME AS DEPTNAME
+  </sql>
+  <sql id="finalcolumns" >
+    ID, USERNAME, REALNAME, PASSWORD, DEPTID, POST, MOBILE, EMAIL, DEPTNAME
+  </sql>
+  <sql id="paramColumns" >
+    ID, USERNAME, REALNAME, PASSWORD, DEPTID, POST, MOBILE, EMAIL, DEPTNAME
+  </sql>
+  <resultMap type="User" id="UserMap">
+  	<id property="id" column="ID" jdbcType="VARCHAR"/>
+  	<association property="dept" column="DEPTID" javaType="Dept" select="com.hdsx.framework.author.mapper.orcl.DeptMapper.selectById"></association>
+  	<collection property="layers" column="ID" ofType="Layer" select="com.hdsx.framework.author.mapper.orcl.LayerMapper.selectByUserId"></collection>
+  	<collection property="roles" column="ID" ofType="Role" select="com.hdsx.framework.author.mapper.orcl.RoleMapper.selectByUserId"></collection>
+  	<collection property="resources" column="ID" ofType="Resource" select="com.hdsx.framework.author.mapper.orcl.ResourceMapper.selectByUserId"></collection>
+  </resultMap>
+  
+  <select id="selectByDeptId" parameterType="string" resultType="User">
+	SELECT <include refid="firstcolumns"/> FROM XT_USER A LEFT JOIN XT_DEPT B ON A.DEPTID = B.ID
+	<where>
+		AND A.DEPTID = #{deptId,jdbcType=VARCHAR}
+	</where>
+</select>
+
+<select id="selectOne" parameterType="map" resultMap="UserMap">
+	SELECT <include refid="firstcolumns"/> FROM XT_USER A LEFT JOIN XT_DEPT B ON A.DEPTID = B.ID
+	<where>
+		<choose>
+			<when test='id != null and !"".equals(id)'>
+				AND A.ID = #{id, jdbcType=VARCHAR}
+			</when>
+			<when test='password != null and !"".equals(password) and userName != null and !"".equals(userName)'>
+				AND A.PASSWORD = #{password, jdbcType=VARCHAR} AND A.USERNAME = #{userName, jdbcType=VARCHAR}
+			</when>
+			<when test='userName != null and !"".equals(userName)'>
+			    AND A.USERNAME = #{userName, jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+		</choose>
+	 </where>
+  </select>	
+  
+  <select id="selectById" parameterType="string" resultType="User">
+		SELECT <include refid="firstcolumns" /> FROM XT_USER A LEFT JOIN XT_DEPT B ON A.DEPTID = B.ID
+		<where>
+			AND A.ID = #{id, jdbcType=VARCHAR}
+		</where>
+	</select>
+
+<insert id="insert" parameterType="User">
+  	INSERT INTO XT_USER(<include refid="columns"/>)
+  	VALUES (#{id,jdbcType=VARCHAR},#{userName,jdbcType=VARCHAR},#{realName,jdbcType=VARCHAR},
+  	#{password,jdbcType=VARCHAR},#{deptId,jdbcType=VARCHAR},#{post,jdbcType=VARCHAR},
+  	#{mobile,jdbcType=VARCHAR},#{email,jdbcType=VARCHAR})
+  </insert>
+  
+  <update id="update" parameterType="User">
+  	UPDATE XT_USER
+  	<set>
+	  	<if test='userName != null and !"".equals(userName)'>
+	  		USERNAME=#{userName,jdbcType=VARCHAR},
+	  	</if>
+	  	REALNAME=#{realName,jdbcType=VARCHAR},
+	  	<if test='password != null and !"".equals(password)'>
+			PASSWORD=#{password,jdbcType=VARCHAR},
+		</if>
+		DEPTID=#{deptId,jdbcType=VARCHAR},POST=#{post,jdbcType=VARCHAR},
+		MOBILE=#{mobile,jdbcType=VARCHAR},EMAIL=#{email,jdbcType=VARCHAR}
+  	</set> 
+  	<where>
+  		AND ID = #{id,jdbcType=VARCHAR}
+  	</where>
+  </update>
+  
+   <select id="count" parameterType="map" resultType="int">
+  	SELECT COUNT(A.ID) FROM XT_USER A LEFT JOIN XT_DEPT B ON A.DEPTID = B.ID 
+  	<where>
+  		<if test='userName != null and !"".equals(userName)'>
+  	 	 AND A.USERNAME LIKE '%' || #{userName,jdbcType=VARCHAR} || '%' 
+  		</if>
+	  	<if test='mobile != null and !"".equals(mobile)'>
+	  	  AND A.MOBILE LIKE '%' || #{mobile,jdbcType=VARCHAR} || '%' 
+	  	</if>
+	  	<if test='email != null and !"".equals(email)'>
+	  	  AND A.EMAIL LIKE '%' || #{email,jdbcType=VARCHAR} || '%' 
+	  	</if>
+ 	</where>
+  </select>
+  
+  <select id="selectList" parameterType="map" resultType="User">
+  	SELECT <include refid="finalcolumns"/> FROM (
+  		SELECT <include refid="firstcolumns"/>,ROW_NUMBER() OVER(ORDER BY 
+  		<choose>
+  			<when test='order == null or "".equals(order)'>
+  				A.USERNAME
+  			</when>
+  			<otherwise>
+  				A.${order}
+  			</otherwise>
+  		</choose>
+  		) RN FROM XT_USER A LEFT JOIN XT_DEPT B ON A.DEPTID = B.ID 
+  		<where>
+  			<choose>
+	  			<when test="ids != null and ids.length > 0">
+	  				AND A.ID IN
+			  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+			  		  #{item, jdbcType=VARCHAR}
+			  		</foreach>
+	  			</when>
+	  			<otherwise>
+			  		<if test='userName != null and !"".equals(userName)'>
+			  	 	 AND A.USERNAME LIKE '%' || #{userName,jdbcType=VARCHAR} || '%' 
+			  		</if>
+				  	<if test='mobile != null and !"".equals(mobile)'>
+				  	  AND A.MOBILE LIKE '%' || #{mobile,jdbcType=VARCHAR} || '%' 
+				  	</if>
+				  	<if test='email != null and !"".equals(email)'>
+				  	  AND A.EMAIL LIKE '%' || #{email,jdbcType=VARCHAR} || '%' 
+				  	</if>
+		  		</otherwise>
+  			</choose>
+  		</where>
+  	) D 
+  		<choose>
+  			<when test='begin != null or end != null'>
+  				<where>
+  					RN > #{begin,jdbcType=VARCHAR} AND #{end,jdbcType=VARCHAR} >= RN
+  				</where>
+  			</when>
+  		</choose>
+  </select>
+  
+  <select id="delete" parameterType="map" >
+  	DELECT FROM XT_USER 
+  	<where>
+  		<choose>
+	  		<when test='ids != null and ids.length>0'>
+		  		AND ID IN
+		  		<foreach collection="ids" index="index" item="item" open="(" separator="," close=")">
+		  		  #{item, jdbcType=VARCHAR}
+		  		</foreach>
+	  		</when>
+	  		<when test='id != null and !"".equals(id)'>
+			  	  AND ID = #{id,jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+  		</choose>
+  	</where>
+  </select>
+  
+  
+  
+  
+  
+ <!--==============================  锁定账户 =================================-->
+ <select id="error" parameterType="map" resultType="int">
+ 	SELECT COUNT(*) FROM FZ_LOGIN_LOG
+ 	<where>
+ 		AND USERNAME = #{userName, jdbcType=VARCHAR}
+ 		AND RESULT = 2
+ 		AND ((TIME > (SELECT MAX(TIME) FROM FZ_LOGIN_LOG WHERE (RESULT = 1 OR RESULT = 3) AND USERNAME = #{userName, jdbcType=VARCHAR}))
+ 		OR (SELECT MAX(TIME) FROM FZ_LOGIN_LOG WHERE (RESULT = 1 OR RESULT = 3) AND USERNAME = #{userName, jdbcType=VARCHAR}) IS NULL)
+ 		<choose>
+ 		<!-- 隔天解锁 -->
+ 			<when test='"1".equals(lock)'>
+ 				AND TRUNC(TIME,'dd') = TRUNC(SYSDATE,'dd')
+ 			</when>
+ 		<!-- 间隔解锁 -->
+ 			<otherwise>
+ 				AND #{time,jdbcType=INTEGER} > (SYSDATE - TIME)*24*60*60*1000
+ 			</otherwise>
+ 		</choose>
+ 	</where>
+ </select>
+ 
+ <insert id="insertLog" parameterType="LoginLog">
+ 	INSERT INTO FZ_LOGIN_LOG(USERNAME,TIME,RESULT) VALUES
+ 	(#{userName,jdbcType=VARCHAR},#{time,jdbcType=TIMESTAMP},#{result,jdbcType=VARCHAR})
+ </insert>
+ 
+ <select id="lastUnlock" parameterType="string" resultType="java.util.Date">
+ 	SELECT MAX(TIME) FROM FZ_LOGIN_LOG WHERE USERNAME = #{userName,jdbcType=VARCHAR} AND RESULT = 3
+ </select>
+ 
+</mapper>

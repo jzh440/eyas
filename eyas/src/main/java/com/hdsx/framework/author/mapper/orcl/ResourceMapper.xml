@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.author.mapper.orcl.ResourceMapper">
+
+  <sql id="columns" >
+    ID, NAME, INFO, URI, PARENT
+  </sql>
+  <sql id="multiColumns">
+  	A.ID, A.NAME, A.INFO, A.URI, A.PARENT
+  </sql>
+  <sql id="paramColumns" >
+    ID, NAME, INFO, URI, PARENT
+  </sql>
+  <resultMap type="Resource" id="ResourceMap">
+  	<id property="id" column="ID" jdbcType="VARCHAR"/>
+  	<collection property="children" column="ID" ofType="Resource" select="selectChildren"></collection>
+  </resultMap>
+  
+  <select id="selectChildren" parameterType="string" resultType="Resource">
+  	SELECT <include refid="columns"/> FROM XT_RESOURCE A
+  	<where>
+  		AND A.PARENT = #{id,jdbcType=VARCHAR}
+  	</where>
+  </select>
+  
+  <select id="selectByUserId" parameterType="string" resultType="Resource">
+	SELECT <include refid="multiColumns"/> FROM XT_RESOURCE A JOIN XT_ROLE_RESOURCE B ON A.ID = B.RESOURCEID
+	JOIN XT_USER_ROLE C ON B.ROLEID = C.ROLEID
+	<where>
+		AND C.USERID = #{userId,jdbcType=VARCHAR}
+	</where>
+</select>	
+
+<select id="selectByRoleId" parameterType="string" resultType="Resource">
+	SELECT <include refid="multiColumns"/> FROM XT_RESOURCE A JOIN XT_ROLE_RESOURCE B ON A.ID = B.RESOURCEID
+	<where>
+		AND B.ROLEID = #{roleId,jdbcType=VARCHAR}
+	</where>
+</select>
+<select id="selectOne" parameterType="map" resultMap="ResourceMap">
+  SELECT <include refid="columns"/> FROM XT_RESOURCE
+  <where>
+		<choose>
+			<when test='id != null and !"".equals(id)'>
+				AND ID = #{id, jdbcType=VARCHAR}
+			</when>
+			<otherwise>
+				AND 1 > 2
+			</otherwise>
+		</choose>
+	</where>
+  </select>
+
+ <insert id="insert" parameterType="Resource">
+  	INSERT INTO XT_RESOURCE(<include refid="columns"/>)
+  	VALUES (#{id,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{info,jdbcType=VARCHAR},
+  	#{uri,jdbcType=VARCHAR},#{parent,jdbcType=VARCHAR})
+  </insert>
+  
+   <update id="update" parameterType="Resource">
+  	UPDATE XT_RESOURCE
+  	<set>
+	  	NAME=#{name,jdbcType=VARCHAR},
+		INFO=#{info,jdbcType=VARCHAR},
+		URI=#{uri,jdbcType=VARCHAR},
+		PARENT=#{parent,jdbcType=VARCHAR}
+  	</set> 
+  	<where>
+  		AND ID = #{id,jdbcType=VARCHAR}
+  	</where>
+  </update>
+  
+</mapper>

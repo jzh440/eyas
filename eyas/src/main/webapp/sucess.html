@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>测试</title>
+<script type="text/javascript" src="/eyas/framework/easyui1.3.2/jquery-1.8.0.min.js"></script>
+<script type="text/javascript">
+	function cece(){
+		$.ajax({
+		    url : '/eyas/rest/dept/query',
+		    type : 'get',
+		    cache : false,
+		    async:false,
+		    data : 'deptName=单位&address=区1&order=ADDRESS',
+		    dataType : 'json',
+		    success : function(obj) {
+				$('#cece').val(obj.message);
+		    },
+		    error : function() {
+		    }
+		  });
+	}
+</script>
+</head>
+<body>
+	<h1>测试成功！</h1>
+	<input id="cece" value="cecec" onclick="cece();"/>
+</body>
+</html>

@@ -1,0 +1,29 @@
+.contain div{
+	height: 40px;
+	line-height: 40px;
+	padding-left: 14px;
+	font-size: 18px;
+	font-family: '微软眼黑';
+	position: fixed;
+	position:absolute;
+	background-color: white;
+}
+.contain div:hover{
+	background-color: #3399FF;
+}
+.select{
+	height: 40px;
+	line-height: 40px;
+	width: 286px;
+	padding-left: 16px;
+	font-size: 18px;
+	font-family: '微软眼黑';
+	position: fixed;
+	background: url("../image/img_t_20.png") no-repeat 0px 0px;
+	border: 0px none;
+}
+
+.select:hover{
+	background: url("../image/img_t_21.png") no-repeat 0px 0px;
+	boder: 0px none;
+}

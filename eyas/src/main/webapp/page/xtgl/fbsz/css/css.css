@@ -1,0 +1,14 @@
+*{padding:0px;margin:0px;}
+body{ background:url(/gism/hpage/xtgl/fbsz/page/xtgl/fbsz/images/bg.jpg) repeat;font-family: "黑体"; overflow: hidden;}
+.center{ margin:50px auto; width:700px; text-align:center; font-size:16px;}
+.center img{ margin-bottom:100px;}
+.center input{ width:500px; height:30px; line-height:30px;}
+
+.btn{width:315px;height:45px; margin:30px auto;}
+.btn_sure{width:104px;height:39px; float:left; background-image:url(/gisyw/page/xtgl/fbsz/images/btn_1i.png); text-align:center; line-height:39px; color:#FFF; font-weight:400;cursor:pointer;}
+.btn_sure_h{background-image:url(/gisyw/page/xtgl/fbsz/images/btn_1h.png);}
+.btn_sure_d{background-image:url(/gisyw/page/xtgl/fbsz/images/btn_1d.png);}
+
+.btn_qx{width:104px;height:39px; float:right; background-image:url(/gisyw/page/xtgl/fbsz/images/btn_2i.png); text-align:center; line-height:39px; color:#FFF; font-weight:400;cursor:pointer;}
+.btn_qx_h{background-image:url(/gisyw/page/xtgl/fbsz/images/btn_2h.png);}
+.btn_qx_d{background-image:url(/gisyw/page/xtgl/fbsz/images/btn_2d.png);}

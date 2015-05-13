@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.author.mapper.orcl.DistCodeMapper">
+
+  <sql id="columns" >
+    CODE, NAME, PARENT
+  </sql>
+  
+  <sql id="paramColumns" >
+    CODE, NAME, PARENT
+  </sql>
+  
+  <resultMap type="DistCode" id="DistCodeMap">
+	<id property="code" column="CODE" jdbcType="VARCHAR" />
+	<collection property="children" column="CODE" ofType="DistCode" select="selectChildren"></collection>
+	<collection property="depts" column="CODE" ofType="Dept"
+		select="com.hdsx.framework.author.mapper.orcl.DeptMapper.selectByDistCode"></collection>
+  </resultMap>
+  
+  <select id="selectChildren" parameterType="string" resultType="DistCode">
+  	SELECT <include refid="columns"/> FROM YW_DISTCODE
+  	<where>
+  		AND PARENT = #{code,jdbcType=VARCHAR}
+  	</where>
+  </select>	
+  
+  <select id="selectOne" parameterType="string" resultMap="DistCodeMap">
+  	SELECT <include refid="columns"/> FROM YW_DISTCODE
+	<where>
+		AND CODE = #{code, jdbcType=VARCHAR}
+	</where>
+  </select>
+  
+  <insert id="insert" parameterType="DistCode">
+  	INSERT INTO YW_DISTCODE(<include refid="columns"/>)
+  	values (#{code,jdbcType=VARCHAR},#{name,jdbcType=VARCHAR},#{parent,jdbcType=VARCHAR})
+  </insert>
+  
+    <update id="update" parameterType="DistCode">
+  	UPDATE YW_DISTCODE
+  	<set>
+	  	NAME=#{name,jdbcType=VARCHAR},
+		PARENT=#{parent,jdbcType=VARCHAR}
+  	</set> 
+  	<where>
+  		AND CODE = #{code, jdbcType=VARCHAR}
+  	</where>
+  </update>
+  
+</mapper>

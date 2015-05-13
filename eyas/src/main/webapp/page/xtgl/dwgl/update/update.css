@@ -1,0 +1,108 @@
+@charset "utf-8";
+/* 全局樣式 */
+body,div,img,table,td,tr,p,a,span,em,ul,li {
+  padding: 0;
+  margin: 0;
+  font-size: 12px;
+  font-family: '微软雅黑';
+}
+
+ul,li {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+img {
+  border: 0;
+}
+
+/* north 样式 */
+.north {
+  height: 55px;
+}
+/* 标签头样式 */
+.header-inner {
+  font-size: 16px;
+  background: url(/gisyw/image/img_07.png) 10px 16px no-repeat;
+  border-bottom: 1px solid #ccc;
+  padding-left: 30px;
+  line-height: 50px;
+  width: 100%;
+  height: 50px;
+}
+/* form table 样式 */
+#form_update {
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
+}
+.table-update {
+  margin: 30px 0 0 30px;
+}
+.td-title {
+  font-size: 14px;
+  width: 100px;
+  height: 50px;
+  text-align: right;
+}
+.td-title span {
+  margin-right: 10px;
+  color: red;
+}
+.td-vali {
+  width: 300px;
+  color: #818181;
+}
+.td-vali-error {
+  width: 300px;
+  color: red;
+}
+.td-input input {
+  font-size: 14px;
+  margin-left: 20px;
+  width: 300px;
+  height: 25px;
+  line-height: 25px;
+}
+/* 按钮样式 */
+.ul-button {
+  margin: 50px 0 0 100px;
+  float: left;
+}
+.ul-button li {
+  float: left;
+}
+.big-button {
+  width: 104px;
+  height: 39px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #fff;
+  border: 0;
+  cursor: pointer;
+}
+/* 发布 */
+.button-publish {
+  margin-right: 50px;
+  background-image: url(/gisyw/image/btn_1h.png);
+}
+.button-publish:hover {
+  background-image: url(/gisyw/image/btn_1i.png);
+}
+.button-publish:active {
+  background-image: url(/gisyw/image/btn_1d.png);
+}
+/* 取消 */
+.button-cancel {
+  margin-left: 50px;
+  background-image: url(/gisyw/image/btn_2h.png);
+}
+.button-cancel:hover {
+  background-image: url(/gisyw/image/btn_2i.png);
+}
+.button-cancel:active {
+  background-image: url(/gisyw/image/btn_2d.png);
+}
