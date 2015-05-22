@@ -17,12 +17,13 @@ public class ResponseMessage implements Serializable{
 	/**
 	 * 请求失败
 	 */
-	public static boolean STATUS_BAD_REQUEST = false;
+	public static boolean STATUS_ERROR = false;
 	/**
 	 * 请求成功
 	 */
 	public static boolean STATUS_SUCESS = true;
 
+	private int errCode;
 	private boolean status;
 	private Object message;
 	public ResponseMessage(){
@@ -44,6 +45,12 @@ public class ResponseMessage implements Serializable{
 		this.status = status;
 	}
 
+	public int getErrCode() {
+		return errCode;
+	}
+	public void setErrCode(int errCode) {
+		this.errCode = errCode;
+	}
 	public Object getMessage() {
 		return message;
 	}

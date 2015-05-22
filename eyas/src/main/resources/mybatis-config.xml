@@ -18,6 +18,12 @@
 		  <typeAlias type="com.hdsx.framework.author.bean.Role" alias="Role"/>
 		  <typeAlias type="com.hdsx.framework.author.bean.Resource" alias="Resource"/>
 		  <typeAlias type="com.hdsx.framework.author.bean.LoginLog" alias="LoginLog"/>
+	
+		<!--元数据管理 -->
+		  <typeAlias type="com.hdsx.framework.registry.bean.RegistryTable" alias="RegistryTable"/>
+		  <typeAlias type="com.hdsx.framework.registry.bean.RegistryColumn" alias="RegistryColumn"/>
+		  <typeAlias type="com.hdsx.framework.registry.bean.RegistryCoordinate" alias="RegistryCoordinate"/>
+		  
 	</typeAliases>
 
 </configuration>

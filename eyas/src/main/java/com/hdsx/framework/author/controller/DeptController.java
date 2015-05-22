@@ -1,4 +1,4 @@
-package com.hdsx.framework.author.controller;
+/*package com.hdsx.framework.author.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -27,21 +27,21 @@ import com.hdsx.framework.lang.dto.DtoUtil;
 import com.hdsx.framework.util.ExcelExport;
 import com.hdsx.framework.util.Iso2UtfUtil;
 import com.hdsx.framework.util.StringUtile;
-/**
+*//**
  * 单位控制器
  * @author xiongxt
  * @2015年3月21日
- */
+ *//*
 @Controller
 @RequestMapping("/dept")
 public class DeptController extends BaseController {
 	@Resource
 	private DeptService service;
 	
-	/**
+	*//**
 	 * 根据id查询单位
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="get/{id}",method=RequestMethod.GET)
 	public void selectOne(@PathVariable("id")String id){
@@ -51,10 +51,10 @@ public class DeptController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据id查询单位
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="info/{id}",method=RequestMethod.GET)
 	public void selectById(@PathVariable("id")String id){
@@ -63,10 +63,10 @@ public class DeptController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 增加单位
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public void insert(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss:sss") Dept dept){
@@ -75,10 +75,10 @@ public class DeptController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据id修改单位
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="modify",method=RequestMethod.POST)
 	public void update(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss:sss") Dept dept){
@@ -87,10 +87,10 @@ public class DeptController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据ids删除单位
 	 * @param ids
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="remove",method=RequestMethod.POST)
 	public void delete(@RequestParam String ids){
@@ -98,20 +98,20 @@ public class DeptController extends BaseController {
 		if(!StringUtile.isEmptyString(ids)) {
 			ids_ = ids.replaceAll(" ", "").split(",");
 		}
-		param.put("ids", ids_);
-		int result = service.delete(param);
-		message.setMessage(result);
+		//param.put("ids", ids_);
+		//int result = service.delete(param);
+		//message.setMessage(result);
 		write();
 	}
 	
-	/**
+	*//**
 	 * 分页查询
 	 * @param order 排序sql语句
 	 * @param page  第几页
 	 * @param rows  每页数
 	 * @param dept  查询条件
 	 * @throws UnsupportedEncodingException 
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="query",method=RequestMethod.GET)
 	public void selectList(@RequestParam(defaultValue="DEPTNAME DESC",required=false) String order,@RequestParam(defaultValue="0",required=false) int page, @RequestParam(defaultValue="0",required=false) int rows, @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") Dept dept) throws UnsupportedEncodingException{
@@ -129,11 +129,11 @@ public class DeptController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 导出
 	 * @param order 排序sql语句
 	 * @param dept  查询条件
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="export",method=RequestMethod.GET)
 	public void export(@RequestParam(defaultValue="DEPTNAME DESC",required=false) String order, @RequestParam(required=false) String ids, 
@@ -161,30 +161,31 @@ public class DeptController extends BaseController {
 		}
 	}
 	
-	/**
+	*//**
 	 * 根据当前用户查询所有单位树结构（包括本单位）
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="allTree",method=RequestMethod.GET)
 	public void treeForAll(){
-		String deptId = getDeptId();
-		List<Dept> all = service.treeForAll(deptId);
-		List<ComboTree> listToList = DtoUtil.listToList(all, new ArrayList<String>(), deptId, new String[]{"id","deptName","children"});
-		message.setMessage(listToList);
-		write();
+		//String deptId = getDeptId();
+		//List<Dept> all = service.treeForAll(deptId);
+		//List<ComboTree> listToList = DtoUtil.listToList(all, new ArrayList<String>(), deptId, new String[]{"id","deptName","children"});
+		//message.setMessage(listToList);
+		//write();
 	}
 	
-	/**
+	*//**
 	 * 根据当前用户查询所有单位树结构（不包括本单位）
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="childTree",method=RequestMethod.GET)
 	public void treeForChildren(){
-		String deptId = getDeptId();
-		List<Dept> children = service.treeForChildren(deptId);
-		List<ComboTree> listToList = DtoUtil.listToList(children, new ArrayList<String>(), deptId, new String[]{"id","deptName","children"});
-		message.setMessage(listToList);
-		write();
+		//String deptId = getDeptId();
+		//List<Dept> children = service.treeForChildren(deptId);
+		//List<ComboTree> listToList = DtoUtil.listToList(children, new ArrayList<String>(), deptId, new String[]{"id","deptName","children"});
+		//message.setMessage(listToList);
+		//write();
 	}
 	
 }
+*/

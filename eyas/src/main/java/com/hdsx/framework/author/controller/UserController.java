@@ -1,4 +1,4 @@
-package com.hdsx.framework.author.controller;
+/*package com.hdsx.framework.author.controller;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -28,56 +28,56 @@ import com.hdsx.framework.util.ExcelExport;
 import com.hdsx.framework.util.Iso2UtfUtil;
 import com.hdsx.framework.util.MD5Util;
 import com.hdsx.framework.util.StringUtile;
-/**
+*//**
  * 用户控制器
  * @author xiongxt
  * @2015年3月21日
- */
+ *//*
 @Controller
 @RequestMapping("/user")
 public class UserController extends BaseController {
 	@Resource
 	private UserService service;
 	
-	/**
+	*//**
 	 * 根据id查询用户
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="get/{id}",method=RequestMethod.GET)
 	public void selectOne(@PathVariable("id")String id){
 		if(StringUtile.isEmptyString(id)){
-			User loginUser = loginUser();
-			message.setMessage(loginUser);
+			//User loginUser = loginUser();
+		//message.setMessage(loginUser);
 		}else{
-			param.put("id", id);
-			User bean = service.selectOne(param);
-			message.setMessage(bean);
+		//param.put("id", id);
+		//User bean = service.selectOne(param);
+		//.setMessage(bean);
 		}
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据id查询用户
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="info/{id}",method=RequestMethod.GET)
 	public void selectById(@PathVariable("id") String id) {
 		if (StringUtile.isEmptyString(id)) {
-			User loginUser = loginUser();
-			message.setMessage(loginUser);
+			//User loginUser = loginUser();
+			//message.setMessage(loginUser);
 		} else {
-			User bean = service.selectById(id);
-			message.setMessage(bean);
+			//User bean = service.selectById(id);
+			//message.setMessage(bean);
 		}
 		write();
 	}
 
-	/**
+	*//**
 	 * 增加用户
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="add",method=RequestMethod.POST)
 	public void insert(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss:sss") User user){
@@ -87,10 +87,10 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据id修改用户
 	 * @param id
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="modify",method=RequestMethod.POST)
 	public void update(@ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss:sss") User user){
@@ -99,10 +99,10 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 根据ids删除用户
 	 * @param ids
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="remove",method=RequestMethod.POST)
 	public void delete(@RequestParam String ids){
@@ -116,14 +116,14 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 分页查询
 	 * @param order 排序sql语句
 	 * @param page  第几页
 	 * @param rows  每页数
 	 * @param user  查询条件
 	 * @throws UnsupportedEncodingException 
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="query",method=RequestMethod.GET)
 	public void selectList(@RequestParam(defaultValue="USERNAME DESC",required=false) String order,@RequestParam(defaultValue="0",required=false) int page, @RequestParam(defaultValue="0",required=false) int rows, @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd") User user) throws UnsupportedEncodingException{
@@ -142,11 +142,11 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 导出
 	 * @param order 排序sql语句
 	 * @param user  查询条件
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="export",method=RequestMethod.GET)
 	public void export(@RequestParam(defaultValue="USERNAME",required=false) String order, @RequestParam(required=false) String ids, 
@@ -175,9 +175,9 @@ public class UserController extends BaseController {
 		}
 	}
 	
-	/**
+	*//**
 	 * 用户登出
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="logout",method=RequestMethod.POST)
 	public void logout(){
@@ -187,11 +187,11 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 修改密码
 	 * @param newpassword 新密码
 	 * @param user 登录名称和原始密码
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="reset",method=RequestMethod.POST)
 	public void reset(@RequestParam String newpassword, @ModelAttribute @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss:sss") User user){
@@ -214,16 +214,16 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 解锁并重置密码,重置为111111
 	 * @param id 要重置的用户
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value="reset/{id}",method=RequestMethod.POST)
 	public void reset(@PathVariable String id){
 		User old = service.selectById(id);
 		if(old != null){
-			int unlock = Integer.parseInt(getInitParameter("unlock"));
+			int unlock = Integer.parseInt(getParameter("unlock"));
 		    Date lastUnlock = service.lastUnlock(old.getUserName());
 			if(lastUnlock == null || (new Date().getTime() - lastUnlock.getTime() > unlock*24*60*60*1000)){
 				//解锁
@@ -243,11 +243,11 @@ public class UserController extends BaseController {
 		write();
 	}
 	
-	/**
+	*//**
 	 * 用户登录
 	 * 
 	 * @param user
-	 */
+	 *//*
 	@ResponseStatus(HttpStatus.OK)
 	@RequestMapping(value = "login", method = RequestMethod.GET)
 	public void login(@ModelAttribute User user) {
@@ -258,11 +258,11 @@ public class UserController extends BaseController {
 		try {
 			Iso2UtfUtil.converToUTF(user);
 
-			String lock = getInitParameter("lock");
+			String lock = getParameter("lock");
 			// 间隔毫秒数
-			int hour = Integer.parseInt(getInitParameter("time"));
+			int hour = Integer.parseInt(getParameter("time"));
 			int time = hour * 60 * 60 * 1000;
-			int max_error = Integer.parseInt(getInitParameter("error"));
+			int max_error = Integer.parseInt(getParameter("error"));
 			param.put("lock", lock);
 			param.put("time", time);
 			param.put("userName", user.getUserName());
@@ -337,3 +337,4 @@ public class UserController extends BaseController {
 		write();
 	}
 }
+*/

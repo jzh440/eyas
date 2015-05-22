@@ -4,7 +4,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <!-- easyui css -->
-<link rel="stylesheet" type="text/css" href="/eyas/framework/easyui1.3.2/themes/default/easyui_old.css">
+<link rel="stylesheet" type="text/css" href="/eyas/framework/easyui1.3.2/themes/default/easyui.css">
 <link rel="stylesheet" type="text/css" href="/eyas/framework/easyui1.3.2/themes/icon.css">
 <!-- 弹框样式 -->
 <link type="text/css" rel="stylesheet" href="/eyas/css/prompt.css"/>
@@ -16,29 +16,19 @@
   <div class="north" data-options="region:'north',border:false">
     <!-- 条件查询 -->
     <div id="toolbar_div" class="toolbar_search">
-      <label for="search_dw">单位名称:</label>
+      <label for="search_dw">图层名称:</label>
       <select id="search_dw" onchange="queryYh();"></select>
-      <label for="search_zt">审核状态:</label>
+      <label for="search_zt">图层类型:</label>
       <select  id="search_zt" onchange="queryYh();">
         <option value="">全部</option>
-        <option value="0">未审核</option>
-        <option value="1">已审核</option>
-        <option value="4">已锁定</option>
+        <option value="0">点</option>
+        <option value="1">线</option>
+        <option value="4">面</option>
       </select>
-<!--       <input type="button" class="toolbar_button" onclick="queryYh();" /> -->
       <!-- 按钮 -->
       <ul class="ul_button">
-      	<li>
-          <input type="button" id="resetps" class="big-button button-resetps" style="width:136px;height:39px;" onclick="locationResetps();" />
-        </li>
-        <li>
-          <input type="button" id="unlock" class="big-button button-unlock" style="width:104px;height:39px;" onclick="unlock();" />
-        </li>
         <li>
           <input type="button" id="add" class="big-button button-add" onclick="locationAdd();" />
-        </li>
-        <li>
-          <input type="button" id="auditing" class="big-button button-auditing" onclick="regulator('2');" />
         </li>
         <li>
           <input type="button" id="delete" class="big-button button-delete" onclick="regulator('1');" />

@@ -17,7 +17,7 @@
 		<servlet.version>3.0.1</servlet.version>
 		<logback.version>1.1.2</logback.version>
 		<aspectj.version>1.8.5</aspectj.version>
-		<slf4j.version>1.7.7</slf4j.version>
+		<slf4j.version>1.7.6</slf4j.version>
 	</properties>
   <repositories>
 		<repository>
@@ -323,11 +323,6 @@
 			<version>${servlet.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-			<version>${slf4j.version}</version>
-		</dependency>
-		<dependency>
 			<groupId>org.aspectj</groupId>
 			<artifactId>aspectjweaver</artifactId>
 			<version>${aspectj.version}</version>
@@ -351,13 +346,11 @@
 					<artifactId>logback-core</artifactId>
 					<groupId>ch.qos.logback</groupId>
 				</exclusion>
+				<exclusion>
+					<artifactId>slf4j-api</artifactId>
+					<groupId>org.slf4j</groupId>
+				</exclusion>
 			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.jolbox</groupId>
-			<artifactId>bonecp</artifactId>
-			<version>0.7.1.RELEASE</version>
-			<classifier>jdk5</classifier>
 		</dependency>
 		<dependency>
 			<groupId>ojdbc</groupId>
@@ -398,6 +391,11 @@
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>0.8.0.RELEASE</version>
 		</dependency>
 	</dependencies>
 </project>

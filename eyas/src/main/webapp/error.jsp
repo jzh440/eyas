@@ -15,8 +15,8 @@
 		   	<ul>
 		   		<li><h3>出错了！</h3></li>
 		   		<li><br></li>
-				<li><span>您访问的页面有误或者页面并不存在！</span></li>
-				<li><span><a href="/gisyw/portal/index/index.jsp"> 返回首页 </a></span></li>	
+				<li><span><%=request.getAttribute("exception") %></span></li>
+				<li><span><a href="/eyas/index.jsp"> 返回首页 </a></span></li>	
 		   	</ul>
 		</div>
    	</div>

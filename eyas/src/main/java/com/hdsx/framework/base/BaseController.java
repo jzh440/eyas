@@ -1,36 +1,51 @@
 package com.hdsx.framework.base;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
+import org.springframework.beans.propertyeditors.CustomNumberEditor;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import com.alibaba.druid.support.logging.Log;
 import com.alibaba.druid.support.logging.LogFactory;
-import com.hdsx.framework.author.bean.User;
 import com.hdsx.framework.lang.ResponseMessage;
 import com.hdsx.framework.util.JsonUtils;
 
 public abstract class BaseController {
 
-	private Log log=LogFactory.getLog(BaseController.class);
+	protected Log log=LogFactory.getLog(BaseController.class);
 	@Resource
 	protected HttpServletRequest request;
 	@Resource
 	protected HttpServletResponse response;
 	/**
-	 * 存储参数
-	 */
-	protected Map<String, Object> param = new HashMap<String, Object>();
-	/**
 	 * 响应内容
 	 */
 	protected ResponseMessage message =  new ResponseMessage(); 
+	/**
+	 * 注册数据类型处理器
+	 * @param binder
+	 */
+	@InitBinder    
+	protected void initBinder(WebDataBinder binder) {    
+		binder.registerCustomEditor(Date.class, new CustomDateEditor(new SimpleDateFormat("yyyy-MM-dd"), true));    
+		binder.registerCustomEditor(int.class, new CustomNumberEditor(Integer.class, true));    
+	    binder.registerCustomEditor(long.class, new CustomNumberEditor(Long.class, true));  
+	    binder.registerCustomEditor(float.class, new CustomNumberEditor(Float.class, true)); 
+	    binder.registerCustomEditor(double.class, new CustomNumberEditor(Double.class, true));
+	    binder.registerCustomEditor(List.class, new CustomCollectionEditor(ArrayList.class));
+	} 
 	/**
 	 * 输出json数据
 	 * @param message
@@ -40,7 +55,6 @@ public abstract class BaseController {
 		{
 			response.reset();
 			response.setContentType("text/javascript;charset=UTF-8");
-			message.setStatus(ResponseMessage.STATUS_SUCESS);
 			JsonUtils.write(message, response.getWriter());
 		} catch (IOException e) {
 			log.error(e.getMessage(), e.getCause());
@@ -53,61 +67,20 @@ public abstract class BaseController {
 		}
 	}
 	/** 
-     * 运行时异常处理器
+     * 异常处理器异常
+     * Exception Type:1、参数传递异常 2、业务逻辑处理异常
      * @param exception 
      * @return 
      */  
-    @ExceptionHandler(RuntimeException.class)  
-    public void exceptionHandler(Exception e) {  
-    	try {
-			log.error(e.getMessage(),e.getCause());  
-			response.reset();
-			response.setContentType("text/javascript;charset=UTF-8");
-			message.setStatus(ResponseMessage.STATUS_BAD_REQUEST);
-			message.setMessage(e.getMessage());
-			JsonUtils.write(message, response.getWriter());
-		}catch (Exception e1){
-			log.error(e1.getMessage(), e1.getCause());
-			e1.printStackTrace();
-		}finally{
-			clear();
-		}
+    @ExceptionHandler  
+    public void RuntimeExceptionHandler(Throwable e) throws Throwable{  
+    	log.error(e.getMessage(), e.getCause());
+    	throw new Throwable(e);
     }  
-    /**
-     * 获取当前登录用户
-     * @return
-     */
-    protected User loginUser(){
-    	User user = null;
-		try {
-			Object o = request.getSession(false).getAttribute("loginuser");
-			if(o != null) {
-				user = (User)o;
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("----------------未登录-----------------");
-		}
-    	return user;
-    }
-    /**
-     * 获取当前登录用户单位
-     * @return
-     */
-    protected String getDeptId(){
-	    User loginUser = loginUser();
-		String deptId = null;
-		
-		if(loginUser !=null){
-		    deptId = loginUser.getDeptId();
-		}
-		return deptId;
-    }
     /**
      * 数据复原，清空
      */
     protected void clear(){
-    	param.clear();
 		message = new ResponseMessage();
     }
     
@@ -116,7 +89,7 @@ public abstract class BaseController {
      * @param name
      * @return
      */
-    protected String getInitParameter(String name){
-    	return request.getServletContext().getInitParameter(name);
+    protected String getParameter(String name){
+    	return request.getParameter(name);
     }
 }

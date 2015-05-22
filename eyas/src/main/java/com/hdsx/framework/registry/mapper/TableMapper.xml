@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "/xsd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hdsx.framework.registry.mapper.TableMapper">
+
+	<sql id="columns">
+		ID,NAME,ALIAS,HASM,HASZ,FEATURETYPE,OWNER,SOURCE,UPDATETIME,SORT,FREQUENCY,CLASSIFY
+	</sql>
+	<insert id="addTable" parameterType="RegistryTable">
+		INSERT INTO 
+		REGISTRY_TABLE(ID,NAME,ALIAS,HASM,HASZ,FEATURETYPE,OWNER,SOURCE,UPDATETIME,SORT,FREQUENCY,CLASSIFY,SYMBOL)
+				VALUES(#{id,jdbcType=VARCHAR},
+					   #{name,jdbcType=VARCHAR},
+					   #{alias,jdbcType=VARCHAR},
+					   #{hasM,jdbcType=CHAR},
+					   #{hasZ,jdbcType=CHAR},
+					   #{featureType,jdbcType=NUMERIC},
+					   #{owner,jdbcType=VARCHAR},
+					   #{source,jdbcType=VARCHAR},
+					   #{updateTime,jdbcType=DATE},
+					   #{sort,jdbcType=NUMERIC},
+					   #{frequency,jdbcType=VARCHAR},
+					   #{classify,jdbcType=NUMERIC},
+					   #{symbol,jdbcType=BLOB})
+	</insert>
+	<select id="addColumns" parameterType="java.util.List" >  
+    	INSERT INTO REGISTRY_COLUMN(ID,NAME,CODE,TYPE,ISNULL,DEFAULTS,DOMAIN,SORT,TABLENAME)
+	    <foreach collection="list" item="item" index="index" separator="union all" >  
+        	 SELECT SYS_GUID(),#{item.name,jdbcType=VARCHAR},#{item.code,jdbcType=VARCHAR},#{item.type,jdbcType=NUMERIC},#{item.isNull,jdbcType=CHAR},#{item.defaults,jdbcType=VARCHAR},#{item.domain,jdbcType=VARCHAR},0,#{item.tableName,jdbcType=VARCHAR}  FROM DUAL  
+    	</foreach>  
+    </select>  
+    
+    <select id="queryTable" parameterType="String" resultType="RegistryTable">
+    	SELECT <include refid="columns"/> FROM REGISTRY_TABLE WHERE ID=#{id}
+    </select>
+    <select id="queryTables" parameterType="int" resultType="RegistryTable">
+    	SELECT ID,NAME FROM  REGISTRY_TABLE  WHERE CLASSIFY=#{classify} ORDER BY SORT
+    </select>
+    <select id="count"  parameterType="Map" resultType="int">
+   	    SELECT COUNT(*) FROM  REGISTRY_COLUMN 
+	    	<where>
+	    		<if test="tableName !=null and tableName!=''">
+	    			TABLENAME=#{tableName}
+	    		</if>
+	    	</where>
+    </select>
+    <select id="queryColumns" parameterType="Map" resultType="RegistryColumn">
+    	SELECT * FROM (
+	    	SELECT ID,NAME,CODE,ISNULL,DOMAIN,DEFAULTS,ROWNUM AS RN FROM  REGISTRY_COLUMN 
+	    	<where>
+	    		<if test="tableName !=null and tableName!=''">
+	    			TABLENAME=#{tableName}
+	    		</if>
+	    	</where>
+	    	ORDER BY SORT
+    	)WHERE rn &gt; #{begin} AND rn &lt;= #{end}	
+    </select>
+    <delete id="delTable" parameterType="String">
+    	DELETE REGISTRY_TABLE WHERE ID=#{id}
+    </delete>
+     <delete id="delColumns" parameterType="String">
+    	DELETE FROM REGISTRY_COLUMN WHERE ID IN (#{ids})
+    </delete>
+</mapper>

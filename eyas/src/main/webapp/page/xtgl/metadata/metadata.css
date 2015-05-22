@@ -1,0 +1,368 @@
+@charset "utf-8";
+/* default css */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    /*vertical-align: baseline;*/
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section, main {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+}
+input {
+    border: 1px solid #c8c8c8;
+    padding: 0 5px;
+}
+select {
+    border: 1px solid #c8c8c8;
+    margin: 0;
+    padding: 0;
+}
+/* metadata css */
+.easyui-layout {
+    height: 100%;
+    width: 100%;
+}
+.page-title {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    text-indent: 50px;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 0 5px #aaa;
+    background: url(/eyas/image/metaImg/icon_title.png) no-repeat 20px center;
+    color: #777;
+}
+.west-wrap {
+    position: relative;
+    width: 300px;
+    height: 100%;
+    overflow: hidden;
+}
+.left-title {
+    text-align: center;
+    width: 300px;
+    height: 50px;
+    line-height: 50px;
+}
+.zt-title, .cjx-title-wrap {
+    font-size: 16px;
+    font-family: "微软雅黑";
+    box-sizing: border-box;
+    border: 1px solid #ddd;
+    height: 50px;
+    float: left;
+}
+.zt-title {
+    width: 100px;
+    background: #f4f4f4;
+    line-height: 50px;
+}
+.cjx-title-wrap {
+    border-left: none;
+    width: 200px;
+}
+.cjx-add, .cjx-del, .cjx-title {
+    display: block;
+    float: right;
+}
+.cjx-add, .cjx-del {
+    border: none;
+    width: 24px;
+    height: 24px;
+    margin: 13px 10px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+.cjx-title {
+    height: 50px;
+}
+.cjx-add {
+    background-image: url(/eyas/image/metaImg/btn_metadata_add.png);
+
+}
+.cjx-add:hover {
+    background-image: url(/eyas/image/metaImg/btn_metadata_add_hover.png);
+}
+.cjx-add:active {
+    background-image: url(/eyas/image/metaImg/btn_metadata_add_down.png);
+}
+.cjx-del {
+    background-image: url(/eyas/image/metaImg/btn_metadata_delete.png);
+}
+.cjx-del:hover {
+    background-image: url(/eyas/image/metaImg/btn_metadata_delete_hover.png);
+}
+.cjx-del:active {
+    background-image: url(/eyas/image/metaImg/btn_metadata_delete_down.png);
+}
+.zt-content {
+    box-sizing: border-box;
+    width: 100px;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-top: none;
+    background: #f4f4f4;
+}
+.zt-content li {
+    text-align: center;
+    height: 40px;
+    line-height: 40px;
+    width: 98px;
+}
+.zt-content li:hover {
+    color: #5bace1;
+    background: #fff url(/eyas/image/metaImg/img_metadata_arrow.png) no-repeat 10px center;
+    cursor: pointer;
+}
+.zt-select {
+    color: #5bace1;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #fff;
+    background: #fff url(/eyas/image/metaImg/img_metadata_arrow.png) no-repeat 10px center;
+}
+.zt-content li:first-child {
+    border-top: none;
+}
+.cjx-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: 200px;
+    float: right;
+    border-right: 1px solid #ddd;
+}
+.cjx-content li {
+    text-align: left;
+    height: 40px;
+    line-height: 40px;
+    width: 150px;
+    margin: auto;
+}
+.cjx-content li:first-child {
+    margin-top: 25px;
+}
+.cjx-content li span {
+    display: inline-block;
+    text-indent: 10px;
+    font: 14px "黑体";
+}
+.cjx-content li span:hover {
+    color: #5bace1;
+    text-decoration: underline;
+    background: url(/eyas/image/metaImg/img_metadata_arrow.png) no-repeat 0 center;
+    cursor: pointer;
+}
+.cjx-select {
+    color: #5bace1;
+    background: url(/eyas/image/metaImg/img_metadata_arrow.png) no-repeat 0 center;
+}
+
+.tc-title {
+    height: 50px;
+    line-height: 50px;
+}
+.tc-title span {
+    margin-left: 20px;
+    font: 16px "微软雅黑";
+    color: #303030;
+}
+.tc-title button {
+    float: right;
+    border: none;
+    width: 80px;
+    height: 30px;
+    margin: 10px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+.tc-save, .tc-cencel, .tc-edit {
+    cursor: pointer;
+}
+.tc-save, .tc-cencel {
+    display: none;
+}
+.tc-save {
+    background: url(/eyas/image/metaImg/btn_save.png) no-repeat;
+}
+.tc-save:hover {
+    background: url(/eyas/image/metaImg/btn_save_hover.png) no-repeat;
+}
+.tc-save:active {
+    background: url(/eyas/image/metaImg/btn_save_down.png) no-repeat;
+}
+.tc-cencel {
+    background: url(/eyas/image/metaImg/btn_xzcancel.png) no-repeat;
+}
+.tc-cencel:hover {
+    background: url(/eyas/image/metaImg/btn_xzcancel_hover.png) no-repeat;
+}
+.tc-cencel:active {
+    background: url(/eyas/image/metaImg/btn_xzcancel_down.png) no-repeat;
+}
+.tc-edit {
+    background: url(/eyas/image/metaImg/btn_metedata_edit.png) no-repeat;
+}
+.tc-edit:hover {
+    background: url(/eyas/image/metaImg/btn_metedata_edit_hover.png) no-repeat;
+}
+.tc-edit:active {
+    background: url(/eyas/image/metaImg/btn_metedata_edit_down.png) no-repeat;
+}
+.tc-pic, .tc-form {
+    float: left;
+}
+.tc-pic {
+    width: 130px;
+}
+.tc-pic img {
+    margin: 15px 0 0 20px;
+    height: 90px;
+    width: 90px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    display: block;
+}
+.tc-pic button {
+    cursor: pointer;
+    display: none;
+    background: #36b1c0;
+    font: 12px "黑体";
+    color: #fff;
+    border: none;
+    width: 80px;
+    height: 30px;
+    margin: 10px 24px;
+    border-radius: 5px;
+}
+#tc_form {
+    display: none;
+}
+.tc-form span {
+    font: 14px "黑体";
+}
+.tc-form input {
+    width: 150px;
+    height: 30px;
+}
+.tc-form select {
+    width: 162px;
+    height: 30px;
+}
+.tc-form label {
+    font: 14px "黑体";
+}
+.tc-form td {
+    height: 40px;
+}
+.td-text {
+    width: 190px;
+}
+.td-label {
+    width: 80px;
+}
+.fh-ts {
+    display: none;
+    clear: both;
+    color: red;
+    margin: 0 0 0 20px;
+}
+.datagrid-toolbar {
+    padding: 0;
+}
+#div_toolbar {
+    height: 50px;
+    line-height: 50px;
+}
+#div_toolbar span {
+    margin-left: 20px;
+    font: 16px "微软雅黑";
+    color: #303030;
+}
+#div_toolbar button {
+    float: right;
+    border: none;
+    width: 80px;
+    height: 30px;
+    margin: 10px;
+    background-repeat: no-repeat;
+    background-color: #fff;
+}
+.toolbar-add, .toolbar-del {
+    cursor: pointer;
+}
+.toolbar-del {
+    background-image: url(/eyas/image/metaImg/btn_delt.png);
+}
+.toolbar-del:hover {
+    background-image: url(/eyas/image/metaImg/btn_delt_hover.png);
+}
+.toolbar-del:active {
+    background-image: url(/eyas/image/metaImg/btn_delt_down.png);
+}
+.toolbar-add {
+    background-image: url(/eyas/image/metaImg/btn_new.png);
+}
+.toolbar-add:hover {
+    background-image: url(/eyas/image/metaImg/btn_new_hover.png);
+}
+.toolbar-add:active {
+    background-image: url(/eyas/image/metaImg/btn_new_down.png);
+}
+
+#add_sx {
+    height: 100%;
+    width: 100%;
+}
+#add_sx table tr {
+    height: 40px;
+}
+#add_sx table tr td {
+
+}
+#add_sx table tr td input {
+    height: 20px;
+}
+#add_sx table tr td label {
+    width: 100px;

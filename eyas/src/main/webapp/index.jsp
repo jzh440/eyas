@@ -58,6 +58,8 @@
       <li><a href="/eyas/page/xwzx/xwzx.jsp" target='iframe_main'>通知公告</a></li>
       <li class="dropdown"><a href="javascript: void(0);">系统管理</a>
         <ul class="sub-menu">
+        	<li><a href='/eyas/page/xtgl/metadata/metadata.jsp'
+            target='iframe_main'>元数据管理</a></li>
           <li><a href='/eyas/page/xtgl/yhgl/yhgl.jsp'
             target='iframe_main'>用户管理</a></li>
           <li><a href='/eyas/page/xtgl/dwgl/dwgl.jsp'
@@ -84,13 +86,13 @@
 
  <!-- 中间主要内容iframe -->
   <div class="center" data-options="region:'center',border:false">
-    <iframe id="iframe_main" name="iframe_main" class="iframe" frameborder="0" src="/eyas/page/xtgl/yhgl/yhgl.jsp"></iframe>
+    <iframe id="iframe_main" name="iframe_main" class="iframe" frameborder="0" src="/eyas/page/xtgl/metadata/metadata.html"></iframe>
   </div>
 
-  <!-- 底部版权信息 -->
-  <!-- <div class="south" data-options="region:'south',border:false">
+ <!-- 底部版权信息 --> 
+  <div class="south" data-options="region:'south',border:false">
     <span>Copyright &copy; 2014 hdsx Company, All Rights Reserved - Version 0.1</span>
-  </div> -->
+  </div>
 
   <!-- 修改密码模块 -->
   <div id="dlg_pass">

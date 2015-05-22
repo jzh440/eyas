@@ -24,33 +24,32 @@
 
 	<!-- Enables the Spring MVC @Controller programming model -->
 	<mvc:annotation-driven />
-
-<!-- 	<resources mapping="/views/**" location="/views/" /> -->
 	<context:component-scan base-package="com.hdsx.framework">
 		<context:include-filter type="annotation" expression="org.aspectj.lang.annotation.Aspect" />
 	</context:component-scan>
+	
 	<context:annotation-config />
 	<context:property-placeholder location="classpath:properties/jdbc.properties" />
 
 	<!-- 启动 @AspectJ 支持 -->
 	<aop:aspectj-autoproxy />
-	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">   
-	    <property name="url" value="${jdbc.url}" />  
-	    <property name="username" value="${jdbc.username}" />  
-	    <property name="password" value="${jdbc.password}" />  
-	    <property name="filters" value="stat" />  
-	    <property name="maxActive" value="20" />  
-	    <property name="initialSize" value="5" />  
-	    <property name="maxWait" value="60000" />  
-	    <property name="minIdle" value="2" />  
-	    <property name="timeBetweenEvictionRunsMillis" value="60000" />  
-	    <property name="minEvictableIdleTimeMillis" value="300000" />  
-	    <property name="validationQuery" value="SELECT 'x'" />  
-	    <property name="testWhileIdle" value="true" />  
-	    <property name="testOnBorrow" value="false" />  
-	    <property name="testOnReturn" value="false" />  
-	    <property name="poolPreparedStatements" value="true" />  
-	    <property name="maxPoolPreparedStatementPerConnectionSize" value="50" />  
+
+	<bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+		destroy-method="close" lazy-init="false">
+		<property name="driverClass" value="${jdbc.driver}" />
+		<property name="jdbcUrl" value="${jdbc.url}" />
+		<property name="username" value="${jdbc.username}" />
+		<property name="password" value="${jdbc.password}" />
+		<property name="maxConnectionsPerPartition" value="${bcpds.maxConnectionsPerPartition}" />
+		<property name="minConnectionsPerPartition" value="${bcpds.minConnectionsPerPartition}" />
+		<property name="partitionCount" value="${bcpds.partitionCount}" />
+		<property name="acquireIncrement" value="${bcpds.acquireIncrement}" />
+		<property name="statementsCacheSize" value="${bcpds.statementsCacheSize}" />
+		<property name="releaseHelperThreads" value="${bcpds.releaseHelperThreads}" />
+		<property name="closeConnectionWatch" value="false" />
+		<property name="logStatementsEnabled" value="false" />
+		<property name="disableConnectionTracking" value="true" />
+		<property name="transactionRecoveryEnabled" value="false" />
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -74,11 +73,49 @@
 	
 	<!-- Resolves views selected for rendering by @Controllers to .jsp resources 
     in the /views directory -->
-  <beans:bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
-    <beans:property name="prefix" value="/views/" />
-    <beans:property name="suffix" value=".jsp" />
-  </beans:bean>
+  <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    <property name="prefix" value="/views/" />
+    <property name="suffix" value=".jsp" />
+  </bean>
   <!-- Only needed because we require fileupload in the org.springframework.samples.mvc.fileupload package -->
-  <beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+  <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver" />
+	<!-- 	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">    -->
+	<!-- 	    <property name="url" value="${jdbc.url}" />   -->
+	<!-- 	    <property name="username" value="${jdbc.username}" />   -->
+	<!-- 	    <property name="password" value="${jdbc.password}" />   -->
+	<!-- 	    <property name="filters" value="stat" />   -->
+	<!-- 	    <property name="maxActive" value="20" />   -->
+	<!-- 	    <property name="initialSize" value="5" />   -->
+	<!-- 	    <property name="maxWait" value="60000" />   -->
+	<!-- 	    <property name="minIdle" value="2" />   -->
+	<!-- 	    <property name="timeBetweenEvictionRunsMillis" value="60000" />   -->
+	<!-- 	    <property name="minEvictableIdleTimeMillis" value="300000" />   -->
+	<!-- 	    <property name="validationQuery" value="SELECT 'x'" />   -->
+	<!-- 	    <property name="testWhileIdle" value="true" />   -->
+	<!-- 	    <property name="testOnBorrow" value="false" />   -->
+	<!-- 	    <property name="testOnReturn" value="false" />   -->
+	<!-- 	    <property name="poolPreparedStatements" value="true" />   -->
+	<!-- 	    <property name="maxPoolPreparedStatementPerConnectionSize" value="50" />   -->
+	<!-- 	</bean> -->
+	<!-- 	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">   -->
+	<!--       <property name="messageConverters">   -->
+	<!--         <list>   -->
+	<!--             <bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter"/>   -->
+	<!--         </list>   -->
+	<!--       </property>   -->
+	<!--     </bean>   -->
+	<!-- 	<resources mapping="/views/**" location="/views/" /> -->
+	<!-- 总错误处理-->
+	<!-- <bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView">  
+		 	<value>/error.jsp</value>
+		</property>
+		<property name="defaultStatusCode">  
+		 	<value>500</value>
+		</property>	
+		<property name="warnLogCategory">  
+		 	<value>org.springframework.web.servlet.handler.SimpleMappingExceptionResolver</value>
+		</property>	
+	</bean>  -->
 </beans>
 

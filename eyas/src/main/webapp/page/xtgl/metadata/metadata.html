@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Frameset//EN" "http://www.w3.org/TR/html4/frameset.dtd">
+<html>
+
+    <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>元数据管理</title>
+        <link rel="stylesheet" type="text/css" href="/eyas/framework/easyui1.3.2/themes/default/easyui.css">
+        <link rel="stylesheet" type="text/css" href="/eyas/framework/easyui1.3.2/themes/icon.css">
+        <link rel="stylesheet" href="metadata.css" />
+
+        <script type="text/javascript" src="/eyas/framework/easyui1.3.2/jquery-1.8.0.min.js"></script>
+        <script type="text/javascript" src="/eyas/framework/easyui1.3.2/jquery.easyui.min.js"></script>
+        <script type="text/javascript" src="/eyas/framework/easyui1.3.2/easyui-lang-zh_CN.js"></script>
+        <script type="text/javascript" src="/eyas/js/utils/YMLib.js"></script>
+        <script type="text/javascript" src="/eyas/js/utils/hdsxUtils.js"></script>
+        <script src="metadata.js" ></script>
+    </head>
+
+    <body class="easyui-layout">
+
+            <!-- top -->
+            <div data-options="region:'north',border:false" style="height: 50px">
+                <div class="page-title">元数据管理</div>
+            </div>
+
+            <!-- left -->
+            <div data-options="region:'west',border:false" style="width:310px;">
+                <div class="easyui-layout">
+                    <div data-options="region:'north',border:false" style="height: 50px">
+                        <div class="west-wrap">
+                            <div class="left-title">
+                                <div class="zt-title">专题</div>
+                                <div class="cjx-title-wrap">
+                                    <button class="cjx-del"></button>
+                                    <button class="cjx-add"></button>
+                                    <span class="cjx-title" id="cjx-count"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="west-wrap">
+                            <ul class="zt-content">
+                                <li id="dtsj" value="1" class="zt-select">底图数据</li>
+                                <li id="ztsj" value="2">专题数据</li>
+                                <li id="lwsj" value="3">路网数据</li>
+                            </ul>
+                            <ul class="cjx-content">
+                                <!--<li><span>国省干线</span></li>
+                                <li><span>桥梁</span></li>
+                                <li><span>常规轨道交通运营线路</span></li>
+                                <li><span>出租车停靠点</span></li>
+                                <li><span>公共电汽车停车保养厂</span></li>-->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- center -->
+            <div data-options="region:'center'">
+                <div class="easyui-layout">
+                    <div data-options="region:'north',border:false" style="height: 235px; border-bottom: 1px solid #ddd; background: #f4f4f4;">
+                        <div class="tc-title">
+                            <span>图层描述</span>
+                            <button class="tc-edit"></button>
+                            <button class="tc-cencel"></button>
+                            <button class="tc-save"></button>
+                        </div>
+                        <div class="tc-content">
+                            <div class="tc-pic">
+                                <img id="fh_img" src="/eyas/image/metaImg/img_metadata_pic.png">
+                                <button id="fh_button">更改符号</button>
+                            </div>
+
+                            <div class="tc-form">
+                                <div id="tc_div">
+                                    <table>
+                                        <tr>
+                                            <td class="td-label"><label>图层名称：</label></td>
+                                            <td class="td-text"><span id="alias"></span></td>
+                                            <td class="td-label"><label>图层编码：</label></td>
+                                            <td class="td-text"><span id="name"></span></td>
+                                            <td class="td-label"><label>图层类型：</label></td>
+                                            <td class="td-text"><span id="featureType"></span></td>
+                                        </tr>
+
+                                        <tr>
+                                        	<td class="td-label"><label>坐标系：</label></td>
+                                            <td class="td-text"><span id="coordinate"></span></td>
+                                            <td class="td-label"><label>更新频率：</label></td>
+                                            <td class="td-text"><span id="frequency"></span></td>
+                                            <td class="td-label"><label>数据来源：</label></td>
+                                            <td class="td-text"><span id="source"></span></td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td-label"><label>所属分类：</label></td>
+                                            <td class="td-text"><span id="classify"></span></td>
+                                            <td class="td-label"><label>更新时间：</label></td>
+                                            <td class="td-text"><span id="updateTime"></span></td>
+                                        </tr>
+                                    </table>
+                                </div>
+                                <form id="tc_form" method="post" enctype="multipart/form-data">
+                                    <input id="fh_input" type="file" name="file" style="display: none;" />
+                                    <input type='hidden' id='id' name='id' />
+                                    <input type='hidden' id='text' name='text' />
+                                    <table>
+                                        <tr>
+                                            <td class="td-label"><label>图层名称：</label></td>
+                                            <td class="td-text"><input tabindex="1" type="text" id="alias" name="alias"  /></td>
+                                            <td class="td-label"><label>图层编码：</label></td>
+                                            <td class="td-text"><input tabindex="2" type="text" id="name" name="name"  /></td>
+                                            <td class="td-label"><label>图层类型：</label></td>
+                                            <td class="td-text">
+                                                <select tabindex="3" id="featureType" name="featureType">
+                                                    <option value="1">点</option>
+                                                    <option value="2">线</option>
+                                                    <option value="3">面</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+ 										<tr>
+                                            <td class="td-label"><label>Include_M值：</label></td>
+                                            <td class="td-text">
+                                                <select tabindex="4" name="hasM">
+                                                    <option value="true">是</option>
+                                                    <option value="false">否</option>
+                                                </select>
+                                            </td>
+                                            <td class="td-label"><label>Include_Z值：</label></td>
+                                            <td class="td-text">
+                                                <select tabindex="5" name="hasZ">
+                                                    <option value="true">是</option>
+                                                    <option value="false">否</option>
+                                                </select>
+                                            </td>
+                                            <td class="td-label"><label>坐标系：</label></td>
+                                            <td class="td-text">
+                                            	<select tabindex="11" id="coordinate" name="coordinate">
+                                                    <option value="1">北京54坐标</option>
+                                                    <option value="2">西安80坐标</option>
+                                                    <option value="3">WGS_84坐标</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                         	<td class="td-label"><label>更新时间：</label></td>
+                                            <td class="td-text"><input tabindex="7" type="text" class="easyui-datebox" id="updateTime" name="updateTime" style="width: 162px; height: 30px;"/></td>
+                                            <td class="td-label"><label>更新频率：</label></td>
+                                            <td class="td-text"><input tabindex="8" type="text" id="frequency" name="frequency" value="1年/100次"/></td>
+                                       		<td class="td-label"><label>数据来源：</label></td>
+                                            <td class="td-text"> <input tabindex="9" type="text" id="source" name="source" /> </td>
+                                        </tr>
+                                        <tr>
+                                       		<td class="td-label"><label>数据集：</label></td>
+                                            <td class="td-text"><input tabindex="10" type="text" id="owner" name="owner" value="GISEO"/>  </td>
+
+                                            <td class="td-label"><label>所属分类：</label></td>
+                                            <td class="td-text">
+                                                <select tabindex="11" name="classify">
+                                                    <option value="1">底图数据</option>
+                                                    <option value="2">专题数据</option>
+                                                    <option value="3">路网数据</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </form>
+                            </div>
+
+                            <div class="fh-ts" style="clear: both;">[请上传格式为jpg，png，大小为90*90的图片。]</div>
+                        </div>
+                    </div>
+                    <div data-options="region:'center',border:false">
+                        <div class="easyui-layout">
+                            <div data-options="region:'north',border:false" style="height: 100px; border-bottom: 1px solid #ddd; background: #f4f4f4; overflow: hidden;">
+                                <div id="div_toolbar">
+                                    <span>属性字段</span>
+                                    <button class="toolbar-del"></button>
+                                    <button class="toolbar-add"></button>
+                                </div>
+                            </div>
+                            <div data-options="region:'center',border:false">
+
+                                <table id="table"></table>
+
+                                <div id="toolbar_add" style="display: none; padding: 20px;">
+                                    <form id="add_sx">
+                                        <table>
+                                            <tr>
+                                                <td class="td-label"><label>字段名称：</label></td>
+                                                <td class="td-text"><input tabindex="1" type="text" id="sx_name" name="name" data-options="required:true"/></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>字段编码：</label></td>
+                                                <td class="td-text"><input tabindex="2" type="text" id="sx_code" name="code" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>字段类型：</label></td>
+                                                <td class="td-text">
+												 <select tabindex="5" name="type" id="sx_type">
+												  	<option value="8">GUID</option>
+                                                    <option value="1">短整型[Short]</option>
+                                                    <option value="2">长整型[Long]</option>
+                                                    <option value="3">单精度[Float]</option>
+                                                    <option value="4">双精度[Double]</option>
+                                                    <option value="5">文本型[Text]</option>
+                                                    <option value="6">日期型[Date]</option>
+                                                    <option value="7">字节型[Blob]</option>
+                                                    <option value="9">栅    格[Raster]</option>
+                                                 </select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>长度：</label></td>
+                                                <td class="td-text"><input tabindex="5" type="text" id="sx_length" name="length" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>数据长度：</label></td>
+                                                <td class="td-text"><input tabindex="5" type="text" id="sx_precision" name="precision" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>小数长度：</label></td>
+                                                <td class="td-text"><input tabindex="5" type="text" id="sx_scale" name="scale" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>值域：</label></td>
+                                                <td class="td-text"><input tabindex="5" type="text" id="sx_domain" name="domain" /></td>
+                                            </tr>
+                                             <tr>
+                                                <td class="td-label"><label>默认值：</label></td>
+                                                <td class="td-text"><input tabindex="4" type="text" id="sx_defaults" name="defaults" /></td>
+                                            </tr>
+                                            <tr>
+                                                <td class="td-label"><label>是否为空：</label></td>
+                                                <td class="td-text">
+                                                 <select tabindex="5" id="sx_isNull" name="isNull">
+                                                    <option value="true">是</option>
+                                                    <option value="false">否</option>
+                                               	 </select>
+                                               </td>
+                                            </tr>
+                                        </table>
+                                    </form>
+
+                                </div>
+
+                                <div id="toolbar_del" style="display: none;">
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+    </body>
+
+</html>

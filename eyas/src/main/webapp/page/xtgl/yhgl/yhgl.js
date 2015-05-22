@@ -24,48 +24,25 @@ $(function() {
       {field:'id',title:'ID',hidden:true},
       {field : 'grid_button',title : '操作',align : 'center',halign : 'center',
         formatter : function(value, row, index) {
-        	if(row.state!='4'){
           var button1 = '<span  onclick="edit(' + index + ');" class="grid-button button-edit" title="编辑"></span> ';
-          var button2 = '<span  onclick="regulator(\'1\', ' + index + ');" class="grid-button button-deletes" title="删除"></span> ';
-          return button1 + button2;
-          }else{
-        	  var button = '<span  onclick="unlock(' + index + ');" class="grid-button1 button-lock" title="解锁"></span> ';
-        	  return button;
-          }
+          var button2 = '<span  onclick="del(' + index + ');" class="grid-button button-deletes" title="删除"></span> ';
+          var button3 = '<span  onclick="load(' + index + ');" class="grid-button1 button-lock" title="导入"></span> ';
+          return   button1 + button2+button3;
         }
       },
-      {field : 'state',title : '审核状态',width : 1,align : 'center',halign : 'center',
-    	  formatter:function(value, row, index){
-    		  if(value=='1'||value=='2'||value=='3'){
-    			  return '已审核';
-    		  }
-    		  if(value=='0'){
-    			  return '未审核';
-    		  }
-    		  if(value=='4'){
-    			  return '已锁定';
-    		  }
-//    		  return (value=='1'||value=='2')?'已审核':'未审核';
-    	  }},
-      {field : 'type',title : '用户类型',width : 1,align : 'center',halign : 'center',
-    		formatter:function(value,row,index){
-    			
-    			if(row.role.length>0){
-    				return row.role[0].roleName;
-    			}else{
-    				return "";
-    			}
-    		}
-      },
-      {field : 'username',title : '用户名称',width : 1,align : 'center',halign : 'center'},
-      {field : 'name',title : '姓名',width : 1,align : 'center',halign : 'center'},
-      {field : 'deptName',title : '单位',width : 1,align : 'center',halign : 'center'},
-      {field : 'mobile',title : '电话',width : 1,align : 'center',halign : 'center'},
-      {field : 'email',title : '邮箱',width : 1,align : 'center',halign : 'center'}
+      {field : 'state',title : '图层名称',width : 1,align : 'center',halign : 'center'},
+      {field : 'type',title : '图层别名',width : 1,align : 'center',halign : 'center' },
+      {field : 'username',title : '图层类型',width : 1,align : 'center',halign : 'center'},
+      {field : 'name',title : 'Include-M',width : 1,align : 'center',halign : 'center'},
+      {field : 'deptName',title : 'Include-Z',width : 1,align : 'center',halign : 'center'},
+      {field : 'mobile',title : '坐标系',width : 1,align : 'center',halign : 'center'},
+      {field : 'email',title : '默认符号',width : 1,align : 'center',halign : 'center'},
+      {field : 'email',title : '数据来源',width : 1,align : 'center',halign : 'center'},
+      {field : 'email',title : '更新时间',width : 1,align : 'center',halign : 'center'}
     ] ]
   });
   
-	addOption('search_dw','/gisyw/dept/selectDept.do');
+	//addOption('search_dw','/gisyw/dept/selectDept.do');
 
 });
 
@@ -168,7 +145,7 @@ function regulator(_parameter, _index) {
 }
 function edit(_index) {
   row = $('#table').datagrid('getRows')[_index];
-  window.location=('update/update.jsp?' + row.id);
+  //window.location=('update/update.jsp?' + row.id);
 }
 
 //重置密码
